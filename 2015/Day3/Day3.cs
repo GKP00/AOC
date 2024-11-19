@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace AOC2015
 {
   class Day3 : IDay
