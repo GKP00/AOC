@@ -10,8 +10,8 @@ void ExecDay(int n)
 
   string input = File.ReadAllText($"{dayN}/input");
 
-  string s1; try { s1 = dayO.SolveFirst(input);  } catch (InvalidInputException e) { s1 = $"\x1b[31m\"{e.Message}\"\x1b[0m"; };
-  string s2; try { s2 = dayO.SolveSecond(input); } catch (InvalidInputException e) { s2 = $"\x1b[31m\"{e.Message}\"\x1b[0m"; };
+  string s1; try { s1 = dayO!.SolveFirst(input);  } catch (InvalidInputException e) { s1 = $"\x1b[31m\"{e.Message}\"\x1b[0m"; };
+  string s2; try { s2 = dayO!.SolveSecond(input); } catch (InvalidInputException e) { s2 = $"\x1b[31m\"{e.Message}\"\x1b[0m"; };
 
   Console.WriteLine($"{dayN,2}: ({s1}, {s2})");
 }
