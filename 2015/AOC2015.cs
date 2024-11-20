@@ -8,7 +8,7 @@ void ExecDay(int n)
   var dayT = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Name == dayN).First();
   var dayO = Activator.CreateInstance(dayT) as AOC2015.IDay;
 
-  string input = File.ReadAllText($"{dayN}/input");
+  string input = File.ReadAllText($"{dayN}/input").TrimEnd();
 
   string s1; 
   string s2; 
