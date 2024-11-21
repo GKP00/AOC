@@ -18,36 +18,6 @@ namespace AOC2015
       throw new NotImplementedException();
     }
 
-    private bool isNiceString_slow(string str)
-    {
-      int vowels = 0;
-      bool doubleLetter = false;
-
-      for(int i = 0; i < str.Length; ++i)
-      {
-        if("aeiou".Contains(str[i])) ++vowels;
-
-        if(i == str.Length-1)
-          continue;
-
-        if(str[i] == str[i+1])
-          doubleLetter = true;
-
-      }
-
-      bool hasBadStrs = false;
-      foreach(var badStr in new[] {"ab", "cd", "qp", "xy"} )
-      {
-        if(str.Contains(badStr))
-        {
-          hasBadStrs = true;
-          break;
-        }
-      }
-
-      return !hasBadStrs && (vowels >= 3) && doubleLetter;
-    }
-
     private bool isNiceString(string str)
     {
       int vowels = 0;
@@ -61,9 +31,9 @@ namespace AOC2015
 
         switch(str[i])
         {
-          //criteria 3: does not contain the strings "ab", "cd", "qp", or "xy"
+          //criteria 3: does not contain the strings "ab", "cd", "pq", or "xy"
           case 'c': if(n == 'd') return false; break;
-          case 'q': if(n == 'p') return false; break;
+          case 'p': if(n == 'q') return false; break;
           case 'x': if(n == 'y') return false; break;
           case 'a': ++vowels; if(n == 'b') return false; break;
          
