@@ -5,7 +5,7 @@
 #include <string_view>
 #include <cassert>
 
-using XY   = std::tuple<size_t, size_t>;
+using XY   = std::tuple<int, int>;
 using Grid = std::vector<std::vector<char>>;
 
 const XY Dirs[] =
@@ -21,13 +21,13 @@ bool GridStrEq(std::string_view str, XY origin, size_t dir, const Grid& grid)
 
   for(size_t i = 0; i < str.length(); ++i)
   {
-    size_t cmpX = std::get<0>(origin) + (std::get<0>(Dirs[dir]) * i);
-    size_t cmpY = std::get<1>(origin) + (std::get<1>(Dirs[dir]) * i);
+    int cmpX = std::get<0>(origin) + (std::get<0>(Dirs[dir]) * i);
+    int cmpY = std::get<1>(origin) + (std::get<1>(Dirs[dir]) * i);
 
-    if(cmpX < 0 || cmpX >= grid.size())
+    if(cmpX < 0 || cmpX >= static_cast<int>(grid.size()))
       return false;
 
-    if(cmpY < 0 || cmpY >= grid[0].size())
+    if(cmpY < 0 || cmpY >= static_cast<int>(grid[0].size()))
       return false;
 
     if(grid[cmpX][cmpY] != str[i])
