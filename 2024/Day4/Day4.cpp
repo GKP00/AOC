@@ -46,7 +46,7 @@ int main()
   while(std::getline(input, line))
     grid.emplace_back( std::vector<char>{line.begin(), line.end()} );
 
-  size_t nXMAS, nX_MAS;
+  size_t nXMAS{}, nX_MAS{};
   for(size_t y = 0; y < grid.size(); ++y)
   {
     for(size_t x = 0; x < grid[y].size(); ++x)
