@@ -71,7 +71,13 @@ namespace AOC2015
 
     public string SolveSecond(string input)
     {
-      throw new NotImplementedException();
+      var connections = parseInput(input);
+      connections["b"] = new Connection("INPUT", new[] { eval("a", connections).ToString() });
+
+      foreach (var con in connections.Values)
+        con.EvalledValue = null;
+
+      return eval("a", connections).ToString();
     }
 
   }
