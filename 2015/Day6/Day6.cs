@@ -65,7 +65,19 @@ namespace AOC2015
 
     public string SolveSecond(string input)
     {
-      throw new NotImplementedException();
+      List<Instruction> instrs = parseInput(input);
+      uint[] grid = new uint[1000*1000];
+
+      foreach(Instruction instr in instrs)
+      {
+        uint topleftX = (uint)Math.Min(instr.To.X, instr.From.X);
+        uint topleftY = (uint)Math.Min(instr.To.Y, instr.From.Y);
+        uint width    = (uint)Math.Abs(instr.To.X - instr.From.X)+1;
+        uint height   = (uint)Math.Abs(instr.To.Y - instr.From.Y)+1;
+        setLightGrid(grid, instr.Op, topleftX, topleftY, width, height);
+      }
+
+      return countBrightness(grid).ToString();
     }
 
     private uint countSetBits(byte[] grid)
@@ -74,6 +86,14 @@ namespace AOC2015
       foreach (byte b in grid)
         c += (uint)System.Numerics.BitOperations.PopCount(b);
       return c;
+    }
+
+    private ulong countBrightness(uint[] grid)
+    {
+      uint c = 0;
+      foreach (uint b in grid)
+        c += b;
+        return c;
     }
 
     private void setBit(byte[] grid, Operation op, uint offset) 
@@ -91,6 +111,20 @@ namespace AOC2015
       };
     }
 
+    private void setLight(uint[] grid, Operation op, uint x, uint y)
+    {
+      uint gridWidth = (uint)Math.Sqrt(grid.Length);
+      uint offset = (y * gridWidth) + x;
+      grid[offset] = op switch
+      {
+        Operation.Toggle => (uint)(grid[offset] + 2),
+        Operation.On     => (uint)(grid[offset] + 1),
+        Operation.Off    => (uint)(grid[offset] - (uint)(grid[offset] > 0 ? 1 : 0)),
+        _ => throw new Exception($"unknown SetLight Op: {op.ToString()}")
+      };
+
+    }
+
     private void setBit(byte[] grid, Operation op, uint x, uint y)
     {
       uint gridWidth = (uint)Math.Sqrt(grid.Length * 8);
@@ -102,6 +136,13 @@ namespace AOC2015
       for (uint y = 0; y < height; ++y)
         for (uint x = 0; x < width; ++x)
           setBit(grid, op, topleftX + x, topleftY + y);
+    }
+
+    private void setLightGrid(uint[] grid, Operation op, uint topleftX, uint topleftY, uint width, uint height)
+    {
+      for (uint y = 0; y < height; ++y)
+        for (uint x = 0; x < width; ++x)
+          setLight(grid, op, topleftX + x, topleftY + y);
     }
   }
 
